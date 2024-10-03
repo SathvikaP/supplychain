@@ -9,10 +9,10 @@
 PeerOrgs:
 
   # ---------------------------------------------------------------------------
-  # Wholesaler Organization
+  # wholeseller Organization
   # ---------------------------------------------------------------------------
-  - Name: Wholesaler
-    Domain: wholesaler.example.com
+  - Name: wholeseller
+    Domain: wholeseller.example.com
     EnableNodeOUs: true
     Template:
       Count: 2  # Two peers

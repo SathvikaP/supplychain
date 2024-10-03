@@ -14,7 +14,7 @@ export CORE_PEER_TLS_ENABLED=true
 export ORDERER1_CA=${PWD}/organizations/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
 export PEER0_PRODUCER_CA=${PWD}/organizations/peerOrganizations/producer.example.com/tlsca/tlsca.producer.example.com-cert.pem
 export PEER0_SUPPLIER_CA=${PWD}/organizations/peerOrganizations/supplier.example.com/tlsca/tlsca.supplier.example.com-cert.pem
-export PEER0_WHOLESALER_CA=${PWD}/organizations/peerOrganizations/wholesaler.example.com/tlsca/tlsca.wholesaler.example.com-cert.pem
+export PEER0_wholeseller_CA=${PWD}/organizations/peerOrganizations/wholeseller.example.com/tlsca/tlsca.wholeseller.example.com-cert.pem
 export ORDERER_ADMIN_TLS_SIGN_CERT=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.crt
 export ORDERER_ADMIN_TLS_PRIVATE_KEY=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.key
 
@@ -39,9 +39,9 @@ setGlobals() {
     export CORE_PEER_ADDRESS=localhost:9051
 
   elif [ $USING_ORG -eq 3 ]; then
-    export CORE_PEER_LOCALMSPID="WholesalerMSP"
-    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_WHOLESALER_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/wholesaler.example.com/users/Admin@wholesaler.example.com/msp
+    export CORE_PEER_LOCALMSPID="wholesellerMSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_wholeseller_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/wholeseller.example.com/users/Admin@wholeseller.example.com/msp
     export CORE_PEER_ADDRESS=localhost:11051
   else
     errorln "ORG Unknown"
@@ -67,7 +67,7 @@ setGlobalsCLI() {
   elif [ $USING_ORG -eq 2 ]; then
     export CORE_PEER_ADDRESS=peer0.supplier.example.com:9051
   elif [ $USING_ORG -eq 3 ]; then
-    export CORE_PEER_ADDRESS=peer0.wholesaler.example.com:11051
+    export CORE_PEER_ADDRESS=peer0.wholeseller.example.com:11051
   else
     errorln "ORG Unknown"
   fi
@@ -96,8 +96,8 @@ parsePeerConnectionParameters() {
       PEER="peer0.supplier"
       CA=PEER0_SUPPLIER_CA
     elif [ $USING_ORG -eq 3 ]; then
-      PEER="peer0.wholesaler"
-      CA=PEER0_WHOLESALER_CA
+      PEER="peer0.wholeseller"
+      CA=PEER0_wholeseller_CA
     else
       errorln "ORG Unknown"
     fi 

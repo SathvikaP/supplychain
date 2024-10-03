@@ -409,7 +409,7 @@
 												},
 												"version": "0"
 											},
-											"WholesalerMSP": {
+											"wholesellerMSP": {
 												"groups": {},
 												"mod_policy": "Admins",
 												"policies": {
@@ -421,7 +421,7 @@
 																"identities": [
 																	{
 																		"principal": {
-																			"msp_identifier": "WholesalerMSP",
+																			"msp_identifier": "wholesellerMSP",
 																			"role": "ADMIN"
 																		},
 																		"principal_classification": "ROLE"
@@ -450,7 +450,7 @@
 																"identities": [
 																	{
 																		"principal": {
-																			"msp_identifier": "WholesalerMSP",
+																			"msp_identifier": "wholesellerMSP",
 																			"role": "PEER"
 																		},
 																		"principal_classification": "ROLE"
@@ -479,21 +479,21 @@
 																"identities": [
 																	{
 																		"principal": {
-																			"msp_identifier": "WholesalerMSP",
+																			"msp_identifier": "wholesellerMSP",
 																			"role": "ADMIN"
 																		},
 																		"principal_classification": "ROLE"
 																	},
 																	{
 																		"principal": {
-																			"msp_identifier": "WholesalerMSP",
+																			"msp_identifier": "wholesellerMSP",
 																			"role": "PEER"
 																		},
 																		"principal_classification": "ROLE"
 																	},
 																	{
 																		"principal": {
-																			"msp_identifier": "WholesalerMSP",
+																			"msp_identifier": "wholesellerMSP",
 																			"role": "CLIENT"
 																		},
 																		"principal_classification": "ROLE"
@@ -528,14 +528,14 @@
 																"identities": [
 																	{
 																		"principal": {
-																			"msp_identifier": "WholesalerMSP",
+																			"msp_identifier": "wholesellerMSP",
 																			"role": "ADMIN"
 																		},
 																		"principal_classification": "ROLE"
 																	},
 																	{
 																		"principal": {
-																			"msp_identifier": "WholesalerMSP",
+																			"msp_identifier": "wholesellerMSP",
 																			"role": "CLIENT"
 																		},
 																		"principal_classification": "ROLE"
@@ -590,7 +590,7 @@
 																	}
 																},
 																"intermediate_certs": [],
-																"name": "WholesalerMSP",
+																"name": "wholesellerMSP",
 																"organizational_unit_identifiers": [],
 																"revocation_list": [],
 																"root_certs": [

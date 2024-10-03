@@ -13,8 +13,8 @@ volumes:
   peer1.producer.example.com:
   peer0.supplier.example.com:
   peer1.supplier.example.com:
-  peer0.wholesaler.example.com:
-  peer1.wholesaler.example.com:
+  peer0.wholeseller.example.com:
+  peer1.wholeseller.example.com:
 
 networks:
   fabric_test:
@@ -74,6 +74,14 @@ services:
       - ORDERER_GENERAL_TLS_ROOTCAS=/var/hyperledger/orderer/tls/ca.crt
       - ORDERER_GENERAL_BOOTSTRAPMETHOD=none
       - ORDERER_CHANNELPARTICIPATION_ENABLED=true
+      - ORDERER_ADMIN_TLS_ENABLED=true
+      - ORDERER_ADMIN_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_ADMIN_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_ADMIN_TLS_ROOTCAS=/var/hyperledger/orderer/tls/ca.crt
+      - ORDERER_ADMIN_TLS_CLIENTROOTCAS=/var/hyperledger/orderer/tls/ca.crt
+      - ORDERER_ADMIN_LISTENADDRESS=0.0.0.0:7054
+      - ORDERER_OPERATIONS_LISTENADDRESS=orderer2.example.com:9444
+      - ORDERER_METRICS_PROVIDER=prometheus
     working_dir: /root
     command: orderer
     volumes:
@@ -82,6 +90,8 @@ services:
       - orderer2.example.com:/var/hyperledger/production/orderer
     ports:
       - 8050:8050
+      -7054:7054
+      -9444:9444
     networks:
       - fabric_test
 
@@ -100,6 +110,14 @@ services:
       - ORDERER_GENERAL_TLS_ROOTCAS=/var/hyperledger/orderer/tls/ca.crt
       - ORDERER_GENERAL_BOOTSTRAPMETHOD=none
       - ORDERER_CHANNELPARTICIPATION_ENABLED=true
+      - ORDERER_ADMIN_TLS_ENABLED=true
+      - ORDERER_ADMIN_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_ADMIN_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_ADMIN_TLS_ROOTCAS=/var/hyperledger/orderer/tls/ca.crt
+      - ORDERER_ADMIN_TLS_CLIENTROOTCAS=/var/hyperledger/orderer/tls/ca.crt
+      - ORDERER_ADMIN_LISTENADDRESS=0.0.0.0:7055
+      - ORDERER_OPERATIONS_LISTENADDRESS=orderer3.example.com:9446
+      - ORDERER_METRICS_PROVIDER=prometheus
     working_dir: /root
     command: orderer
     volumes:
@@ -108,6 +126,8 @@ services:
       - orderer3.example.com:/var/hyperledger/production/orderer
     ports:
       - 9050:9050
+      -7055:7055
+      -9446:9446
     networks:
       - fabric_test
 
@@ -233,9 +253,9 @@ services:
     networks:
       - fabric_test
 
-  # Wholesaler Organization Peers
-  peer0.wholesaler.example.com:
-    container_name: peer0.wholesaler.example.com
+  # wholeseller Organization Peers
+  peer0.wholeseller.example.com:
+    container_name: peer0.wholeseller.example.com
     image: hyperledger/fabric-peer:latest
     environment:
       - FABRIC_CFG_PATH=/etc/hyperledger/peercfg
@@ -245,16 +265,16 @@ services:
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
-      - CORE_PEER_ID=peer0.wholesaler.example.com
-      - CORE_PEER_ADDRESS=peer0.wholesaler.example.com:11051
+      - CORE_PEER_ID=peer0.wholeseller.example.com
+      - CORE_PEER_ADDRESS=peer0.wholeseller.example.com:11051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.wholesaler.example.com:11052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.wholeseller.example.com:11052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
-      - CORE_PEER_LOCALMSPID=WholesalerMSP
+      - CORE_PEER_LOCALMSPID=wholesellerMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp
     volumes:
-      - ../organizations/peerOrganizations/wholesaler.example.com/peers/peer0.wholesaler.example.com:/etc/hyperledger/fabric
-      - peer0.wholesaler.example.com:/var/hyperledger/production
+      - ../organizations/peerOrganizations/wholeseller.example.com/peers/peer0.wholeseller.example.com:/etc/hyperledger/fabric
+      - peer0.wholeseller.example.com:/var/hyperledger/production
     working_dir: /root
     command: peer node start
     ports:
@@ -262,8 +282,8 @@ services:
     networks:
       - fabric_test
 
-  peer1.wholesaler.example.com:
-    container_name: peer1.wholesaler.example.com
+  peer1.wholeseller.example.com:
+    container_name: peer1.wholeseller.example.com
     image: hyperledger/fabric-peer:latest
     environment:
       - FABRIC_CFG_PATH=/etc/hyperledger/peercfg
@@ -273,16 +293,16 @@ services:
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
-      - CORE_PEER_ID=peer1.wholesaler.example.com
-      - CORE_PEER_ADDRESS=peer1.wholesaler.example.com:12051
+      - CORE_PEER_ID=peer1.wholeseller.example.com
+      - CORE_PEER_ADDRESS=peer1.wholeseller.example.com:12051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:12051
-      - CORE_PEER_CHAINCODEADDRESS=peer1.wholesaler.example.com:12052
+      - CORE_PEER_CHAINCODEADDRESS=peer1.wholeseller.example.com:12052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:12052
-      - CORE_PEER_LOCALMSPID=WholesalerMSP
+      - CORE_PEER_LOCALMSPID=wholesellerMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp
     volumes:
-      - ../organizations/peerOrganizations/wholesaler.example.com/peers/peer1.wholesaler.example.com:/etc/hyperledger/fabric
-      - peer1.wholesaler.example.com:/var/hyperledger/production
+      - ../organizations/peerOrganizations/wholeseller.example.com/peers/peer1.wholeseller.example.com:/etc/hyperledger/fabric
+      - peer1.wholeseller.example.com:/var/hyperledger/production
     working_dir: /root
     command: peer node start
     ports:
@@ -308,6 +328,6 @@ services:
     depends_on:
       - peer0.producer.example.com
       - peer0.supplier.example.com
-      - peer0.wholesaler.example.com
+      - peer0.wholeseller.example.com
     networks:
       - fabric_test

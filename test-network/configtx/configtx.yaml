@@ -69,23 +69,23 @@ Organizations:
                Type: Signature
                Rule: "OR('SupplierMSP.peer')"
 
-   - &WholesalerOrg
-       Name: WholesalerMSP
-       ID: WholesalerMSP
-       MSPDir: ../organizations/peerOrganizations/wholesaler.example.com/msp
+   - &wholesellerOrg
+       Name: wholesellerMSP
+       ID: wholesellerMSP
+       MSPDir: ../organizations/peerOrganizations/wholeseller.example.com/msp
        Policies:
            Readers:
                Type: Signature
-               Rule: "OR('WholesalerMSP.admin', 'WholesalerMSP.peer', 'WholesalerMSP.client')"
+               Rule: "OR('wholesellerMSP.admin', 'wholesellerMSP.peer', 'wholesellerMSP.client')"
            Writers:
                Type: Signature
-               Rule: "OR('WholesalerMSP.admin', 'WholesalerMSP.client')"
+               Rule: "OR('wholesellerMSP.admin', 'wholesellerMSP.client')"
            Admins:
                Type: Signature
-               Rule: "OR('WholesalerMSP.admin')"
+               Rule: "OR('wholesellerMSP.admin')"
            Endorsement:
                Type: Signature
-               Rule: "OR('WholesalerMSP.peer')"
+               Rule: "OR('wholesellerMSP.peer')"
 
 ################################################################################
 #
@@ -211,5 +211,5 @@ Profiles:
            Organizations:
                - *ProducerOrg
                - *SupplierOrg
-               - *WholesalerOrg
+               - *wholesellerOrg
            Capabilities: *ApplicationCapabilities
