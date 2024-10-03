@@ -18,13 +18,7 @@ configtxgen -profile ThreeOrgsApplicationGenesis -outputBlock ./channel-artifact
 
 cp ../config/core.yaml ./configtx/.
 
-export ORDERER_CA=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/msp/tlscacerts/tlsca.example.com-cert.pem 
-export ORDERER1_ADMIN_TLS_SIGN_CERT=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.crt
-export ORDERER1_ADMIN_TLS_PRIVATE_KEY=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.key
 
-osnadmin channel join --channelID $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"export ORDERER_CA=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/msp/tlscacerts/tlsca.example.com-cert.pem 
-export ORDERER1_ADMIN_TLS_SIGN_CERT=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.crt
-export ORDERER1_ADMIN_TLS_PRIVATE_KEY=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.key osnadmin channel join --channelID 
 export ORDERER_CA=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 export ORDERER_ADMIN_TLS_SIGN_CERT=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.crt
 export ORDERER_ADMIN_TLS_PRIVATE_KEY=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.key
@@ -33,45 +27,47 @@ osnadmin channel join --channelID $CHANNEL_NAME --config-block ./channel-artifac
 export ORDERER_CA=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 export ORDERER_ADMIN_TLS_SIGN_CERT=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt
 export ORDERER_ADMIN_TLS_PRIVATE_KEY=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.key
-osnadmin channel join --channelID $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:7153 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
+osnadmin channel join --channelID $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:7054 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
 
 export ORDERER_CA=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 export ORDERER_ADMIN_TLS_SIGN_CERT=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/server.crt
 export ORDERER_ADMIN_TLS_PRIVATE_KEY=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/server.key
-osnadmin channel join --channelID $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:7253 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
+osnadmin channel join --channelID $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:7055 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY"
 
+Here in envVar.sh each file we have defined setGlobals() in such a way that it can input both the number of the organisation and the number of peer to be joined.
 
-source ./scripts/setOrgPeerContext.sh 1
+source ./scripts/setOrgPeerContext.sh 1 0
 peer channel join -b ./channel-artifacts/${CHANNEL_NAME}.block
 
-source ./scripts/setOrgPeerContext.sh 2
+source ./scripts/setOrgPeerContext.sh 1 1
 peer channel join -b ./channel-artifacts/${CHANNEL_NAME}.block
 
-source ./scripts/setOrgPeerContext.sh 3
+source ./scripts/setOrgPeerContext.sh 2 0
 peer channel join -b ./channel-artifacts/${CHANNEL_NAME}.block
 
-source ./scripts/setOrgPeerContext.sh 4
+source ./scripts/setOrgPeerContext.sh 2 1
 peer channel join -b ./channel-artifacts/${CHANNEL_NAME}.block
 
-source ./scripts/setOrgPeerContext.sh 5
+source ./scripts/setOrgPeerContext.sh 3 0
 peer channel join -b ./channel-artifacts/${CHANNEL_NAME}.block
 
-source ./scripts/setOrgPeerContext.sh 6
+source ./scripts/setOrgPeerContext.sh 3 1
 peer channel join -b ./channel-artifacts/${CHANNEL_NAME}.block
 
 
 
-source ./scripts/setOrgPeerContext.sh 1
+source ./scripts/setOrgAnchorPeerContext.sh 1
 docker exec cli ./scripts/setAnchorPeer.sh 1 $CHANNEL_NAME
 
-source ./scripts/setOrgPeerContext.sh 3
+source ./scripts/setOrgAnchorPeerContext.sh 2
 docker exec cli ./scripts/setAnchorPeer.sh 3 $CHANNEL_NAME
 
-source ./scripts/setOrgPeerContext.sh 5
+source ./scripts/setOrgAnchorPeerContext.sh 3
 docker exec cli ./scripts/setAnchorPeer.sh 5 $CHANNEL_NAME
 
 
 
+Deploying the chaincode
 
 
 source ./scripts/setChaincodeContext.sh
@@ -119,4 +115,5 @@ peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride o
 
 source ./scripts/setOrgPeerContext.sh 1
 peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer1.example.com --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C channel1 -n supply1 $PEER_CONN_PARAMS --isInit -c '{"function":"InitLedger","Args":[]}'
+
 peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer1.example.com --tls --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C channel1 -n supply1 $PEER_CONN_PARAMS -c '{"function":"GetAllAssets","Args":[]}'
