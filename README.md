@@ -15,6 +15,7 @@ export FABRIC_CFG_PATH=${PWD}/configtx
 export CHANNEL_NAME=channel1
 
 configtxgen -profile ThreeOrgsApplicationGenesis -outputBlock ./channel-artifacts/${CHANNEL_NAME}.block -channelID $CHANNEL_NAME 
+
 cp ../config/core.yaml ./configtx/.
 
 export ORDERER_CA=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/msp/tlscacerts/tlsca.example.com-cert.pem 
