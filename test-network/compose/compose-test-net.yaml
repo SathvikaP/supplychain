@@ -90,8 +90,8 @@ services:
       - orderer2.example.com:/var/hyperledger/production/orderer
     ports:
       - 8050:8050
-      -7054:7054
-      -9444:9444
+      - 7054:7054
+      - 9444:9444
     networks:
       - fabric_test
 
@@ -126,8 +126,8 @@ services:
       - orderer3.example.com:/var/hyperledger/production/orderer
     ports:
       - 9050:9050
-      -7055:7055
-      -9446:9446
+      - 7055:7055
+      - 9446:9446
     networks:
       - fabric_test
 
