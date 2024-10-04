@@ -213,3 +213,30 @@ Profiles:
                - *SupplierOrg
                - *wholesellerOrg
            Capabilities: *ApplicationCapabilities
+    ProducerSupplierGenesis:
+       <<: *ChannelDefaults
+       Orderer:
+           <<: *OrdererDefaults
+           Organizations:
+               - *OrdererOrg
+           Capabilities: *OrdererCapabilities
+       Application:
+           <<: *ApplicationDefaults
+           Organizations:
+               - *ProducerOrg
+               - *SupplierOrg
+           Capabilities: *ApplicationCapabilities
+    ProducerWholesellerGenesis:
+       <<: *ChannelDefaults
+       Orderer:
+           <<: *OrdererDefaults
+           Organizations:
+               - *OrdererOrg
+           Capabilities: *OrdererCapabilities
+       Application:
+           <<: *ApplicationDefaults
+           Organizations:
+               - *ProducerOrg
+               - *SupplierOrg
+               - *wholesellerOrg
+           Capabilities: *ApplicationCapabilities
