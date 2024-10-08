@@ -79,11 +79,11 @@ docker exec cli ./scripts/setAnchorPeer.sh 1 $CHANNEL_NAME
 
 source ./scripts/setOrgAnchorPeerContext.sh 2
 
-docker exec cli ./scripts/setAnchorPeer.sh 3 $CHANNEL_NAME
+docker exec cli ./scripts/setAnchorPeer.sh 2 $CHANNEL_NAME
 
 source ./scripts/setOrgAnchorPeerContext.sh 3
 
-docker exec cli ./scripts/setAnchorPeer.sh 5 $CHANNEL_NAME
+docker exec cli ./scripts/setAnchorPeer.sh 3 $CHANNEL_NAME
 
 
 
