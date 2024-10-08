@@ -93,27 +93,27 @@ Deploying the chaincode
 source ./scripts/setChaincodeContext.sh
 
 
-source ./scripts/setOrgPeerContext.sh 1
+source ./scripts/setOrgPeerContext.sh 1 0
 
 peer lifecycle chaincode package supply1.tar.gz --path ${CC_SRC_PATH} --lang ${CC_RUNTIME_LANGUAGE} --label supply1_${VERSION}
 
 peer lifecycle chaincode install supply1.tar.gz
 
 
-source ./scripts/setOrgPeerContext.sh 2
+source ./scripts/setOrgPeerContext.sh 1 1
 
 peer lifecycle chaincode install supply1.tar.gz
 
-source ./scripts/setOrgPeerContext.sh 3
+source ./scripts/setOrgPeerContext.sh 2 0
 
 peer lifecycle chaincode install supply1.tar.gz
-source ./scripts/setOrgPeerContext.sh 4
+source ./scripts/setOrgPeerContext.sh 2 1
 
 peer lifecycle chaincode install supply1.tar.gz
-source ./scripts/setOrgPeerContext.sh 5
+source ./scripts/setOrgPeerContext.sh 3 0
 
 peer lifecycle chaincode install supply1.tar.gz
-source ./scripts/setOrgPeerContext.sh 6
+source ./scripts/setOrgPeerContext.sh 3 1
 
 peer lifecycle chaincode install supply1.tar.gz
 
