@@ -70,6 +70,8 @@ source ./scripts/setOrgPeerContext.sh 3 1
 peer channel join -b ./channel-artifacts/${CHANNEL_NAME}.block
 
 
+in setAnchorPeer.sh please change ORDERER_CA to ORDERER1_CA to avoid errors
+
 
 source ./scripts/setOrgAnchorPeerContext.sh 1
 
